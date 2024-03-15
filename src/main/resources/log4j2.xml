@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+	<Properties>
+		<Property name="LOG_DIR">${sys:user.home}/logs/</Property>
+		<Property name="LOG_PATTERN">
+			%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+		</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<RollingFile name="FileAppender"
+			fileName="${LOG_DIR}/hr_service.log"
+			filePattern="${LOG_DIR}/hr_service-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.host.domain.hrservice" level="error"
+			additivity="false">
+			<AppenderRef ref="FileAppender" />
+			<!-- <AppenderRef ref="Console" /> -->
+		</Logger>
+		<Root level="error">
+			<AppenderRef ref="FileAppender" />
+			<!-- <AppenderRef ref="Console" /> -->
+		</Root>	
+	</Loggers>
+</Configuration>
