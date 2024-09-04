@@ -19,7 +19,7 @@ import com.host.domain.hrservice.util.JsonParserUtil;
 @RequestMapping("/locations")
 
 public class LocationsController {
-	
+
 	@Autowired
 	private LocationsServiceImpl locationsServiceImpl;
 
@@ -38,6 +38,5 @@ public class LocationsController {
 		}
 		return response;
 	}
-
 
 }

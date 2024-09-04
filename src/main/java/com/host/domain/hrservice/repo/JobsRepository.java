@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.host.domain.hrservice.domain.Jobs;
 
-public interface JobsRepository extends JpaRepository<Jobs,String> {
+public interface JobsRepository extends JpaRepository<Jobs, String> {
 }

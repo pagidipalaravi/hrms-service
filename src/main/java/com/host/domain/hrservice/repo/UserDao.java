@@ -8,5 +8,5 @@ import com.host.domain.hrservice.domain.User;
 @Repository
 public interface UserDao extends CrudRepository<User, Integer> {
 
-    User findByUsername(String username);
+	User findByUsername(String username);
 }

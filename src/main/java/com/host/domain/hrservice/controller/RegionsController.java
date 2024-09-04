@@ -19,78 +19,77 @@ import com.host.domain.hrservice.util.JsonParserUtil;
 @RequestMapping("/regions")
 
 public class RegionsController {
-	
+
 	@Autowired
 	private RegionsServiceImpl regionsServiceImpl;
 
-	@RequestMapping(value="/",method=RequestMethod.GET,produces="application/json")
+	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
 	public String getRegions() {
-		int size=0;
+		int size = 0;
 		String response = null;
 		try {
-		List<Regions> regList= regionsServiceImpl.getRegions();
-		response = JsonParserUtil.toJson(regList);
-		size = regList.size();
-		}catch(Exception e) {
-			throw new RuntimeException("Did not find region id " +e.getMessage());
+			List<Regions> regList = regionsServiceImpl.getRegions();
+			response = JsonParserUtil.toJson(regList);
+			size = regList.size();
+		} catch (Exception e) {
+			throw new RuntimeException("Did not find region id " + e.getMessage());
 		}
 		return response;
-}
-	@RequestMapping(value="/create",method=RequestMethod.POST,produces="application/json")
+	}
+
+	@RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
 	public String creatRegion(@RequestBody String request) {
 		Regions region = JsonParserUtil.fromJson(request, Regions.class);
 		String response = "";
 		try {
 			regionsServiceImpl.createRegion(region);
-		}catch(Exception e){
-		e.printStackTrace();	
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return response;
 	}
-	
-	@RequestMapping(value="/update",method=RequestMethod.PUT,produces="application/json")
+
+	@RequestMapping(value = "/", method = RequestMethod.PUT, produces = "application/json")
 	public String updateRegion(@RequestBody String request) {
 		Regions region = JsonParserUtil.fromJson(request, Regions.class);
 		String response = null;
 		try {
 			regionsServiceImpl.updateRegion(region);
-			
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return response;
 	}
-	@RequestMapping(value="/{id}",  method=RequestMethod.GET,produces="application/json")
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
 	public String getRegionById(@PathVariable("id") String id) {
-		Long l = Long.valueOf(id); 
-		//int size=0;
+		Long l = Long.valueOf(id);
+		// int size=0;
 		String response = null;
-		Regions region =null;
+		Regions region = null;
 		try {
-		region= regionsServiceImpl.getRegionById(l);
-		response = JsonParserUtil.toJson(region);
-		}catch(Exception e) {
-			throw new RuntimeException("Did not find region id " +e.getMessage());	
+			region = regionsServiceImpl.getRegionById(l);
+			response = JsonParserUtil.toJson(region);
+		} catch (Exception e) {
+			throw new RuntimeException("Did not find region id " + e.getMessage());
 		}
-		if(region!=null) {
+		if (region != null) {
 			return response;
+		} else {
+			throw new RuntimeException("Did not find region id " + id);
 		}
-		else {
-			throw new RuntimeException("Did not find region id "+id);
-		}	
 	}
-	@RequestMapping(value="/{id}",method=RequestMethod.DELETE,produces="application/json")
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
 	public String deleteRegionById(@PathVariable("id") String id) {
-		Long l = Long.valueOf(id); 
+		Long l = Long.valueOf(id);
 		String response = "";
 		try {
 			regionsServiceImpl.deleteRegionById(l);
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return response;
 	}
-	
 }

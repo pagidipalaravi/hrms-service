@@ -25,7 +25,6 @@ public class JobsController {
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
 
 	public String getJobs() {
-		System.out.println("getJobs");
 		String response = "";
 		ApiResponse apiResponse = null;
 		try {

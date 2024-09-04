@@ -1,13 +1,14 @@
 package com.host.domain.hrservice.util;
 
 
-import com.host.domain.hrservice.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.host.domain.hrservice.domain.User;
 
 import java.io.Serializable;
 import java.util.Arrays;
