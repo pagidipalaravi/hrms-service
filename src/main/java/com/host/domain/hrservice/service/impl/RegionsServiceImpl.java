@@ -9,76 +9,70 @@ import org.springframework.stereotype.Service;
 import com.host.domain.hrservice.domain.Regions;
 import com.host.domain.hrservice.repo.RegionsRepository;
 import com.host.domain.hrservice.service.spec.RegionsService;
+
 @Service
 public class RegionsServiceImpl implements RegionsService {
-	
+
 	@Autowired
 	RegionsRepository regionsRepository;
 
 	@Override
-		public List<Regions> getRegions() {
-			List<Regions> regList=null;
-			try {
-				regList = regionsRepository.findAll();
-				System.out.println("size = "+regList.size());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return regList;
-		
-	}
-
-	@Override
-	public boolean createRegion(Regions theRegion) {
-			Regions region=theRegion;
-			try {
-				regionsRepository.save(region);	
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
-			return true;
-	}
-
-	@Override
-	public boolean updateRegion(Regions theRegion) {
-		Regions region=theRegion;
+	public List<Regions> getRegions() {
+		List<Regions> regionsList = null;
 		try {
-			regionsRepository.save(region);	
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		return true;
-	}
-	@Override
-	public Regions getRegionById(Long l) {
-		Optional<Regions> optional=null;
-		Regions regions = null;
-		Long l2 = new Long(l);
-		try {
-			optional=regionsRepository.findById(l2);
-			if(optional.isPresent()) {
-				regions = optional.get();
-				//return departments;
-			}
-			else {
-				throw new RuntimeException("Did not find region id"+l);
-			}
-		}catch(Exception e) {
-			
-		}
-	return regions;
-	}
-
-	@Override
-	public boolean deleteRegionById(Long l) {
-		Long l2=new Long(l);
-		try {
-			regionsRepository.deleteById(l2);
+			regionsList = regionsRepository.findAll();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException("Unable to get Regions");
+		}
+		return regionsList;
+
+	}
+
+	@Override
+	public boolean createRegion(Regions region) {
+		try {
+			regionsRepository.save(region);
+		} catch (Exception e) {
+			throw new RuntimeException("Unable to create Region");
 		}
 		return true;
 	}
 
+	@Override
+	public boolean updateRegion(Regions region) {
+		try {
+			regionsRepository.save(region);
+		} catch (Exception e) {
+			throw new RuntimeException("Unable to update Region");
+		}
+		return true;
+	}
+
+	@Override
+	public Regions getRegionById(Long regionId) {
+		Optional<Regions> optional = null;
+		Regions regions = null;
+		try {
+			optional = regionsRepository.findById(regionId);
+			if (optional.isPresent()) {
+				regions = optional.get();
+			} else {
+				throw new RuntimeException("Unable to get Region By Id");
+			}
+		} catch (Exception e) {
+
+		}
+		return regions;
+	}
+
+	@Override
+	public boolean deleteRegionById(Long regionId) {
+		try {
+			regionsRepository.deleteById(regionId);
+		} catch (Exception e) {
+			throw new RuntimeException("unable to delete Region By Id");
+		}
+		return true;
+	}
 
 }

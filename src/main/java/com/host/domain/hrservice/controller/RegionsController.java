@@ -25,12 +25,10 @@ public class RegionsController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
 	public String getRegions() {
-		int size = 0;
 		String response = null;
 		try {
 			List<Regions> regList = regionsServiceImpl.getRegions();
 			response = JsonParserUtil.toJson(regList);
-			size = regList.size();
 		} catch (Exception e) {
 			throw new RuntimeException("Did not find region id " + e.getMessage());
 		}
@@ -64,7 +62,6 @@ public class RegionsController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
 	public String getRegionById(@PathVariable("id") String id) {
 		Long l = Long.valueOf(id);
-		// int size=0;
 		String response = null;
 		Regions region = null;
 		try {
